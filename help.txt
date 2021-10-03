@@ -1,0 +1,13 @@
+Usage: make TARGET ARGS
+
+    help                Print this help.
+    image               Build docker image.
+
+Development:
+    check               Run static, test.
+    test                Run all unit test.
+    static              Run static code analysis.
+    clean               Remove build-artifacts.
+    cleanup             Remove all produced artifacts including docker assets.
+
+Set Q= to echo commands when run

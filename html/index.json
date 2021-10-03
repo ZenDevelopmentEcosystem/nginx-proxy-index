@@ -1,0 +1,9 @@
+{
+    "sites": [
+        {
+            "name": "Index",
+            "url": "https://index.dev.localhost",
+            "description": "Index page"
+        }
+    ]
+}

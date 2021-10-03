@@ -1,0 +1,25 @@
+{{ $external_https_port := coalesce $.Env.HTTPS_PORT "443" }}
+{{ $external_https_port := (when (eq $external_https_port "443") ("") (printf ":%s" $external_https_port)) }}
+{{ $first := true }}
+{{ $excludes := groupByMulti $ "Env.INDEX_EXCLUDES" "," }}
+{
+    "sites": [
+{{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
+{{ $host := trim $host }}
+{{ range $idx, $container := $containers }}
+{{ $name := coalesce $container.Env.INDEX_NAME $container.Name $host }}
+{{ $url := $host }}
+{{ $description := coalesce $container.Env.INDEX_DESC "" }}
+{{ $excluded := contains $excludes $host }}
+{{ if not $excluded }}
+        {{ if not $first }},{{ end }}{
+            "name": "{{ $name }}",
+            "url": "https://{{ $url }}{{ $external_https_port }}",
+            "description": "{{ $description }}"
+        }
+        {{ $first = false }}
+{{ end }}
+{{ end }}
+{{ end }}
+    ]
+}
