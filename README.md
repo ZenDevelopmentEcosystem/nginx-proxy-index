@@ -2,7 +2,7 @@ NPI (Nginx Proxy Index)
 =======================
 
 NPI, Nginx Proxy Index, is a docker container that can generate an index page
-for [https://github.com/nginx-proxy/nginx-proxy](nginx-proxy), that lists the
+for [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy), that lists the
 running services (virtual hosts) to act as a kind of service index-page;
 service discovery for humans.
 
@@ -12,7 +12,7 @@ Usage
 To run it:
 
 ```console
-docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock -e VIRTUAL_HOST=index.local zendev/nginx-proxy-index
+docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock -e VIRTUAL_HOST=index.local perbohlin/nginx-proxy-index
 ```
 
 Container Meta Data
@@ -35,7 +35,7 @@ INDEX_EXCLUDES
 Implementation
 --------------
 
-The NPI service uses [https://github.com/nginx-proxy/docker-gen](docker-gen) to
+The NPI service uses [docker-gen](https://github.com/nginx-proxy/docker-gen) to
 generate the service-list in the form of a JSON-file.
 
 The JSON file has the following format:
@@ -52,7 +52,7 @@ The JSON file has the following format:
 }
 ```
 
-The container uses [https://github.com/nginx-proxy/forego/](forego) as process runner.
+The container uses [forego](https://github.com/nginx-proxy/forego/) as process runner.
 
 Development
 -----------
@@ -66,4 +66,4 @@ make check
 Acknowledgements
 -----------------
 
-The implementation is based on the [https://github.com/nginx-proxy/nginx-proxy](nginx-proxy).
+The implementation is based on the [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy).
