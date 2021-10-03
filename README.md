@@ -12,7 +12,7 @@ Usage
 To run it:
 
 ```console
-docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock -e VIRTUAL_HOST=index.local perbohlin/nginx-proxy-index
+docker run -d -v /var/run/docker.sock:/tmp/docker.sock -e VIRTUAL_HOST=index.local perbohlin/nginx-proxy-index
 ```
 
 Container Meta Data
