@@ -1,9 +1,15 @@
-IMAGE := nginx-proxy-index
+IMAGE := perbohlin/nginx-proxy-index
 CONTAINER := $(IMAGE)
 Q=@
 
 image:
 	$(Q)docker build . -t ${IMAGE}:test
+
+tag:
+	$(Q)docker tag ${IMAGE}:test ${IMAGE}:latest
+
+publish: tag
+	$(Q)docker push ${IMAGE}:latest
 
 check: static test
 
