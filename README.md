@@ -32,6 +32,10 @@ INDEX_EXCLUDES
   This can be useful in case of multi-hostname services where only the primary should be listed.
   It can also be used to exclude the index-service itself from the list.
 
+INDEX_GROUP
+: The service-group the site belongs to. This property will be utilized in the visualization
+  in the future. Currently only present in the index.json file.
+
 Implementation
 --------------
 
@@ -46,7 +50,8 @@ The JSON file has the following format:
         {
             "name": "The name of the service",
             "description": "The text description of the service",
-            "url": "The URL to the service"
+            "url": "The URL to the service",
+            "group": "The service group the site belongs to"
         }
     ]
 }
@@ -57,11 +62,9 @@ The container uses [forego](https://github.com/nginx-proxy/forego/) as process r
 Development
 -----------
 
-Prior to pull-requests, run:
+Run `make help` to learn more about the build-system.
 
-```console
-make check
-```
+Prior to pull-requests, run: `make check`
 
 Acknowledgements
 -----------------
