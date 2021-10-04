@@ -19,4 +19,8 @@ th {
     color: white;
 }
 
+h2.error {
+    color: red;
+}
+
 tr:nth-child(even) {background-color: #f2f2f2;}

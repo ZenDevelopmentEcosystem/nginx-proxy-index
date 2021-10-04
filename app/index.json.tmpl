@@ -4,7 +4,7 @@
 {{ $excludes := groupByMulti $ "Env.INDEX_EXCLUDES" "," }}
 {
     "sites": [
-{{ if $.Env.INDEX_STATIC_SITES }}{{ trim $.Env.INDEX_STATIC_SITES }},{{ end }}
+{{ if $.Env.INDEX_STATIC_SITES }}{{ trim $.Env.INDEX_STATIC_SITES }}{{ $first = false }}{{ end }}
 {{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
 {{ $host := trim $host }}
 {{ range $idx, $container := $containers }}
