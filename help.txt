@@ -1,9 +1,12 @@
 Usage: make TARGET ARGS
 
     help                Print this help.
+
+Image:
     image               Build docker image.
     tag                 Tag the test image as latest
     publish             (tag and) push the image to docker registry
+    IMAGE=perbohlin/nginx-proxy-index TAG=test
 
 Development:
     check               Run static, test.
