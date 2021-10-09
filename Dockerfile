@@ -40,14 +40,16 @@ RUN git clone https://github.com/nginx-proxy/forego/ \
 FROM gobuilder as frontend-git
 ARG INDEX_WEB_SRC
 RUN git clone "${INDEX_WEB_SRC}" \
-   && cp -r /go/index-web/html / \
-   && rm -rf /go/index-web
+   && cp -r index-web/html / \
+   && cp -r index-web/docker-entrypoint.d / \
+   && rm -rf index-web
 
 
 # index-web using filesystem
 FROM gobuilder as frontend-filesystem
 ARG INDEX_WEB_SRC
 COPY ${INDEX_WEB_SRC}/html /html
+COPY ${INDEX_WEB_SRC}/docker-entrypoint.d /docker-entrypoint.d
 
 # index-web disabled
 FROM gobuilder as frontend-none
@@ -81,7 +83,8 @@ ENV DOCKER_HOST unix:///tmp/docker.sock
 ENV INDEX_DATA_FILE=${INDEX_DATA_FILE:-/usr/share/nginx/html/data/index.json}
 
 RUN rm -rf /usr/share/nginx/html
-COPY --from=frontend --chown=nginx:ngincx /html /usr/share/nginx/html
+COPY --from=frontend --chown=nginx:nginx /html /usr/share/nginx/html
+COPY --from=frontend --chown=nginx:nginx /docker-entrypoint.d/ /docker-entrypoint.d/
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["forego", "start", "-r"]

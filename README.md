@@ -36,6 +36,16 @@ INDEX_GROUP
 : The service-group the site belongs to. This property will be utilized in the visualization
   in the future. Currently only present in the index.json file.
 
+Frontend Application
+--------------------
+
+The frontend web-application is [index-web](https://github.com/ZenDevelopmentEcosystem/index-web).
+
+The `INDEX_WEB_CONFIG` environmental variable can be used to set the configuration.
+
+The `config.json` file can also be overridden by mounting a file to:
+`/usr/share/nginx/config/config.json`.
+
 Implementation
 --------------
 
@@ -58,8 +68,6 @@ The JSON file has the following format:
     ]
 }
 ```
-
-The frontend web-application is [index-web](https://github.com/ZenDevelopmentEcosystem/index-web).
 
 The container uses [forego](https://github.com/nginx-proxy/forego/) as process runner.
 
