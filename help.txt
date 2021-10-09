@@ -2,6 +2,8 @@ Usage: make TARGET ARGS
 
     help                Print this help.
     image               Build docker image.
+    tag                 Tag the test image as latest
+    publish             (tag and) push the image to docker registry
 
 Development:
     check               Run static, test.
