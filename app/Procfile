@@ -1,2 +1,2 @@
-dockergen: docker-gen -only-exposed -watch /app/index.json.tmpl /usr/share/nginx/html/index.json
+dockergen: docker-gen -only-exposed -watch /app/index.json.tmpl ${INDEX_DATA_FILE}
 nginx: nginx

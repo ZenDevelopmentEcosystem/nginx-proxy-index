@@ -40,8 +40,9 @@ Implementation
 --------------
 
 The NPI service uses [docker-gen](https://github.com/nginx-proxy/docker-gen) to
-generate the service-list in the form of a JSON-file named `index.json` in the
-servers web-root.
+generate the service-list in the form of a JSON-file. The location of the file
+is set by the container environmental variable `INDEX_DATA_FILE` and defaults
+`/usr/share/nginx/html/data/index.json`, where the frontend expects to find it.
 
 The JSON file has the following format:
 
@@ -58,7 +59,7 @@ The JSON file has the following format:
 }
 ```
 
-The frontend is [index-web](https://github.com/ZenDevelopmentEcosystem/index-web).
+The frontend web-application is [index-web](https://github.com/ZenDevelopmentEcosystem/index-web).
 
 The container uses [forego](https://github.com/nginx-proxy/forego/) as process runner.
 

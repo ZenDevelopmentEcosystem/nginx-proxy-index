@@ -77,6 +77,7 @@ COPY app /app/
 WORKDIR /app/
 
 ENV DOCKER_HOST unix:///tmp/docker.sock
+ENV INDEX_DATA_FILE=${INDEX_DATA_FILE:-/usr/share/nginx/html/data/index.json}
 
 RUN rm -rf /usr/share/nginx/html
 COPY --from=frontend --chown=nginx:ngincx /html /usr/share/nginx/html
