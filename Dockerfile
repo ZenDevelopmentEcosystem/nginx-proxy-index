@@ -12,13 +12,13 @@ FROM golang:1.16.7 as gobuilder
 FROM gobuilder as dockergen
 ARG DOCKER_GEN_VERSION
 RUN git clone https://github.com/jwilder/docker-gen \
-   && cd /go/docker-gen \
-   && git -c advice.detachedHead=false checkout $DOCKER_GEN_VERSION \
-   && go mod download \
-   && CGO_ENABLED=0 GOOS=linux go build -ldflags "-X main.buildVersion=${DOCKER_GEN_VERSION}" ./cmd/docker-gen \
-   && go clean -cache \
-   && mv docker-gen /usr/local/bin/ \
-   && cd - \
+   && (cd /go/docker-gen \
+       && git -c advice.detachedHead=false checkout $DOCKER_GEN_VERSION \
+       && go mod download \
+       && CGO_ENABLED=0 GOOS=linux go build -ldflags "-X main.buildVersion=${DOCKER_GEN_VERSION}" ./cmd/docker-gen \
+       && go clean -cache \
+       && mv docker-gen /usr/local/bin/ \
+     ) \
    && rm -rf /go/docker-gen
 
 
@@ -26,14 +26,14 @@ RUN git clone https://github.com/jwilder/docker-gen \
 FROM gobuilder as forego
 ARG FOREGO_VERSION
 RUN git clone https://github.com/nginx-proxy/forego/ \
-   && cd /go/forego \
-   && git -c advice.detachedHead=false checkout $FOREGO_VERSION \
-   && go mod download \
-   && CGO_ENABLED=0 GOOS=linux go build -o forego . \
-   && go clean -cache \
-   && mv forego /usr/local/bin/ \
-   && cd - \
-   && rm -rf /go/forego
+   && (cd /go/forego \
+       && git -c advice.detachedHead=false checkout $FOREGO_VERSION \
+       && go mod download \
+       && CGO_ENABLED=0 GOOS=linux go build -o forego . \
+       && go clean -cache \
+       && mv forego /usr/local/bin/ \
+       ) \
+       && rm -rf /go/forego
 
 
 # index-web using git
@@ -53,6 +53,7 @@ COPY ${INDEX_WEB_SRC}/html /html
 FROM gobuilder as frontend-none
 RUN mkdir /html
 
+# hadolint ignore=DL3006
 FROM frontend-${INDEX_WEB_TYPE} as frontend
 
 # Build the final image

@@ -1,0 +1,19 @@
+
+Usage: make [-jN] TARGET ARGS
+
+    print-info-<VARIABLE>
+                        Print information about variable.
+    print-var-<VARIABLE>
+                        Prints: <VARIABLE>=<VALUE>
+    print-val-<VARIABLE>
+                        Prints the variables value
+    print-var-all-variables:
+                        Prints all variables with values.
+    print-info-all-variables:
+                        Prints information about all variables.
+    print-info-all-defines:
+                        Prints information about all defines.
+    list-targets        List scoped targets
+    list-variables      List scoped build-system specific variables.
+                        Not including environmental, default and auto-variables.
+    list-defines        List scoped defines

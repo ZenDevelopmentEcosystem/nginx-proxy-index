@@ -1,6 +1,8 @@
 Usage: make TARGET ARGS
 
     help                Print this help.
+    make-help           Print targets related to development of the make-system
+    readme              Print README.
 
 Image:
     image               Build docker image.
