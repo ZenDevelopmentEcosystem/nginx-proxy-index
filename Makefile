@@ -7,6 +7,9 @@ Q=@
 INDEX_WEB.src ?= https://github.com/ZenDevelopmentEcosystem/index-web.git
 INDEX_WEB.type ?= git
 
+help:
+	@cat help.txt
+
 image:
 	$(Q)docker build . \
 		-t $(IMAGE):$(TAG) \
@@ -23,6 +26,3 @@ check: static test
 
 static test clean cleanup:
 	$(Q)echo $(@) is not implemented yet
-
-help:
-	@cat help.txt
