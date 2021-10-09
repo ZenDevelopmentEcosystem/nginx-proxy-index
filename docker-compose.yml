@@ -3,10 +3,9 @@ version: "3.7"
 services:
   nginx-proxy:
     environment:
-      DOCKER_HOST: ${DOCKER_HOST:-unix:///tmp/docker.sock}
+      DOCKER_HOST: unix:///tmp/docker.sock
     container_name: nginx-proxy-index
-    hostname: "nginx-proxy-index-c.${DOMAIN:?Variable DOMAIN is empty or not set!}"
-    image: ${DOCKER_REGISTRY:?Variable DOCKER_REGISTRY is empty or not set!}/nginx-proxy-index:test
+    image: perbohlin/nginx-proxy-index:test
     restart: always
     ports:
       - "80:80"

@@ -9,7 +9,7 @@ service discovery for humans.
 Usage
 -----
 
-To run it:
+Use the included `docker-compose.yml` file, or run:
 
 ```console
 docker run -d -v /var/run/docker.sock:/tmp/docker.sock -e VIRTUAL_HOST=index.local perbohlin/nginx-proxy-index
@@ -40,7 +40,8 @@ Implementation
 --------------
 
 The NPI service uses [docker-gen](https://github.com/nginx-proxy/docker-gen) to
-generate the service-list in the form of a JSON-file.
+generate the service-list in the form of a JSON-file named `index.json` in the
+servers web-root.
 
 The JSON file has the following format:
 
@@ -57,6 +58,8 @@ The JSON file has the following format:
 }
 ```
 
+The frontend is [index-web](https://github.com/ZenDevelopmentEcosystem/index-web).
+
 The container uses [forego](https://github.com/nginx-proxy/forego/) as process runner.
 
 Development
@@ -65,6 +68,10 @@ Development
 Run `make help` to learn more about the build-system.
 
 Prior to pull-requests, run: `make check`
+
+To build the image using a local filesystem version of the index-web application, create
+a file `.env` based on the `env.template` file and set the appropriate variables
+as described in the template file. By default, it will use the public repository.
 
 Acknowledgements
 -----------------

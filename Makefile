@@ -1,15 +1,23 @@
 IMAGE := perbohlin/nginx-proxy-index
-CONTAINER := $(IMAGE)
+TAG := test
 Q=@
 
+-include .env
+
+INDEX_WEB.src ?= https://github.com/ZenDevelopmentEcosystem/index-web.git
+INDEX_WEB.type ?= git
+
 image:
-	$(Q)docker build . -t ${IMAGE}:test
+	$(Q)docker build . \
+		-t $(IMAGE):$(TAG) \
+		--build-arg "INDEX_WEB_SRC=$(INDEX_WEB.src)" \
+		--build-arg "INDEX_WEB_TYPE=$(INDEX_WEB.type)"
 
 tag:
-	$(Q)docker tag ${IMAGE}:test ${IMAGE}:latest
+	$(Q)docker tag $(IMAGE):$(TAG) $(IMAGE):latest
 
 publish: tag
-	$(Q)docker push ${IMAGE}:latest
+	$(Q)docker push $(IMAGE):latest
 
 check: static test
 
