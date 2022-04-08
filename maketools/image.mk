@@ -15,3 +15,9 @@ tag:
 
 publish: tag
 	$(Q)docker push $(IMAGE):latest
+
+up:
+	$(Q)$(ROOT.dir)/bin/docker-compose.sh up -d
+
+down:
+	$(Q)$(ROOT.dir)/bin/docker-compose.sh down

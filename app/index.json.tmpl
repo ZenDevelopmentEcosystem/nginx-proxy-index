@@ -1,28 +1,37 @@
 {{ $external_https_port := coalesce $.Env.HTTPS_PORT "443" }}
 {{ $external_https_port := (when (eq $external_https_port "443") ("") (printf ":%s" $external_https_port)) }}
-{{ $first := true }}
 {{ $excludes := groupByMulti $ "Env.INDEX_EXCLUDES" "," }}
+{{ $server := coalesce $.Env.INDEX_HOST "" }}
+{{ $first_site := true }}
 {
     "sites": [
-{{ if $.Env.INDEX_STATIC_SITES }}{{ trim $.Env.INDEX_STATIC_SITES }}{{ $first = false }}{{ end }}
-{{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
-{{ $host := trim $host }}
-{{ range $idx, $container := $containers }}
-{{ $name := coalesce $container.Env.INDEX_NAME $container.Name $host }}
-{{ $url := printf "https://%s%s" $host $external_https_port }}
-{{ $description := coalesce $container.Env.INDEX_DESC "" }}
-{{ $group := coalesce $container.Env.INDEX_GROUP "" }}
-{{ $excluded := contains $excludes $host }}
-{{ if not $excluded }}
-        {{ if not $first }},{{ end }}{
-            "name": "{{ $name }}",
-            "url": "{{ $url }}",
-            "description": "{{ $description }}",
-            "group": "{{ $group }}"
-        }
-        {{ $first = false }}
-{{ end }}
-{{ end }}
-{{ end }}
+    {{ if $.Env.INDEX_STATIC_SITES }}{{ trim $.Env.INDEX_STATIC_SITES }},{{ end }}
+    {{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
+        {{ $host := trim $host }}
+        {{ range $idx, $container := $containers }}
+            {{ if not $first_site }},{{ end }}
+            {{ $name := coalesce $container.Env.INDEX_NAME $container.Name $host }}
+            {{ $url := printf "https://%s%s" $host $external_https_port }}
+            {{ $description := coalesce $container.Env.INDEX_DESC "" }}
+            {{ $group := coalesce $container.Env.INDEX_GROUP "" }}
+            {{ $excluded := contains $excludes $host }}
+            {{ $tags := groupByMulti $ "container.Env.INDEX_TAGS" "," }}
+            {{ if not $excluded }}
+                {{ $first_site = false }}
+                {{ if $idx }},{{ end }}{
+                    "name": "{{ $name }}",
+                    "url": "{{ $url }}",
+                    "description": "{{ $description }}",
+                    "group": "{{ $group }}",
+                    "host": "{{ $server }}",
+                    "tags": [
+                    {{ range $tagidx, $tag := $tags }}
+                        {{ if $tagidx }},{{ end }}"{{ $tag }}"
+                    {{ end }}
+                    ]
+                }
+            {{ end }}
+        {{ end }}
+    {{ end }}
     ]
 }

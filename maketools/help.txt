@@ -8,6 +8,8 @@ Image:
     image               Build docker image.
     tag                 Tag the test image as latest
     publish             (tag and) push the image to docker registry
+    up                  Bring up (using docker-compose)
+    down                Bring down (using docker-compose)
     IMAGE=perbohlin/nginx-proxy-index TAG=test
 
 Development:

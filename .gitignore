@@ -1,3 +1,6 @@
 .env
 # excluded to allow easy bind-mount index-web into docker build context
 index-web
+# excluded to allow for your own customization of the make-up target using the
+# docker compose file
+local-docker-compose.yml

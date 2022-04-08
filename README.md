@@ -12,8 +12,17 @@ Usage
 Use the included `docker-compose.yml` file, or run:
 
 ```console
-docker run -d -v /var/run/docker.sock:/tmp/docker.sock -e VIRTUAL_HOST=index.local perbohlin/nginx-proxy-index
+docker run -d -v /var/run/docker.sock:/tmp/docker.sock -e INDEX_HOST="MyServer" -e VIRTUAL_HOST=index.local perbohlin/nginx-proxy-index
 ```
+
+The variable INDEX_HOST is used to set the property `host` for the services listed
+in the data file. If not set, empty string is used.
+
+The docker compose example `docker-compose.yml`, assumes that the NPI is run
+together and behind an `nginx-proxy`instance. Adjust image tag to `latest`
+if running of latest official image instead of locally built test image.
+Also, the variable `VIRTUAL_HOST` need to be changed to match the deployment
+context.
 
 Container Meta Data
 -------------------
@@ -28,13 +37,16 @@ INDEX_DESC
 : The service's description.
 
 INDEX_EXCLUDES
-: Comma separated lists of any virtual-host names that should not be listed in the index.
+: Comma separated list of any virtual-host names that should not be listed in the index.
   This can be useful in case of multi-hostname services where only the primary should be listed.
   It can also be used to exclude the index-service itself from the list.
 
 INDEX_GROUP
-: The service-group the site belongs to. This property will be utilized in the visualization
-  in the future. Currently only present in the index.json file.
+: The service-group the site belongs to.
+
+INDEX_TAGS
+: Comma separated list of string tags. It is a convenient way to allow multi-grouping
+  of services beyond the group property.
 
 Frontend Application
 --------------------
@@ -63,7 +75,10 @@ The JSON file has the following format:
             "name": "The name of the service",
             "description": "The text description of the service",
             "url": "The URL to the service",
-            "group": "The service group the site belongs to"
+            "group": "The service group the site belongs to",
+            "host": "The name of the server/host where the container is running",
+            "tags": ["List", "of" "strings"]
+
         }
     ]
 }
@@ -81,6 +96,9 @@ Prior to pull-requests, run: `make check`
 To build the image using a local filesystem version of the index-web application, create
 a file `.env` based on the `env.template` file and set the appropriate variables
 as described in the template file. By default, it will use the public repository.
+
+To bring up a test-instance, run `make up`. In addition to the included `docker-compose.yml`
+the mechanism allow for customization using your own file `local-docker-compose.yml`.
 
 Acknowledgements
 -----------------
