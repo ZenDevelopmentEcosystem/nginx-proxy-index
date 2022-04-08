@@ -59,7 +59,7 @@ RUN mkdir /html
 FROM frontend-${INDEX_WEB_TYPE} as frontend
 
 # Build the final image
-FROM nginx:1.21.3
+FROM nginx:latest
 LABEL maintainer="Per Böhlin <per.bohlin@devconsoft.se>"
 
 # Configure Nginx and apply fix for very long server names
