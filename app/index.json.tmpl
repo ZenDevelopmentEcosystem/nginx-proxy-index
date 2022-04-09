@@ -9,7 +9,6 @@
     {{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
         {{ $host := trim $host }}
         {{ range $idx, $container := $containers }}
-            {{ if not $first_site }},{{ end }}
             {{ $name := coalesce $container.Env.INDEX_NAME $container.Name $host }}
             {{ $url := printf "https://%s%s" $host $external_https_port }}
             {{ $description := coalesce $container.Env.INDEX_DESC "" }}
@@ -17,8 +16,7 @@
             {{ $excluded := contains $excludes $host }}
             {{ $tags := groupByMulti $ "container.Env.INDEX_TAGS" "," }}
             {{ if not $excluded }}
-                {{ $first_site = false }}
-                {{ if $idx }},{{ end }}{
+                {{ if not $first_site }},{{ end }}{
                     "name": "{{ $name }}",
                     "url": "{{ $url }}",
                     "description": "{{ $description }}",
@@ -30,6 +28,7 @@
                     {{ end }}
                     ]
                 }
+                {{ $first_site = false }}
             {{ end }}
         {{ end }}
     {{ end }}
