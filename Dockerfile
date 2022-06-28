@@ -1,11 +1,11 @@
 # setup build arguments for version of dependencies to use
-ARG DOCKER_GEN_VERSION=0.7.7
+ARG DOCKER_GEN_VERSION=0.9.0
 ARG FOREGO_VERSION=v0.17.0
 ARG INDEX_WEB_TYPE=git
 ARG INDEX_WEB_SRC=https://github.com/ZenDevelopmentEcosystem/index-web
 
 # Use a specific version of golang to build both binaries
-FROM golang:1.16.7 as gobuilder
+FROM golang:1.18.1 as gobuilder
 
 
 # Build docker-gen from scratch
