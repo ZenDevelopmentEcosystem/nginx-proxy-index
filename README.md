@@ -12,7 +12,7 @@ Usage
 Use the included `docker-compose.yml` file, or run:
 
 ```console
-docker run -d -v /var/run/docker.sock:/tmp/docker.sock -e INDEX_HOST="MyServer" -e VIRTUAL_HOST=index.local perbohlin/nginx-proxy-index
+docker run -d -v /var/run/docker.sock:/tmp/docker.sock -e INDEX_HOST="MyServer" -e VIRTUAL_HOST=index.local ghcr.io/zendevelopmentecosystem/nginx-proxy-index:latest
 ```
 
 The variable INDEX_HOST is used to set the property `host` for the services listed

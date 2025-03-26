@@ -1,4 +1,4 @@
-IMAGE := perbohlin/nginx-proxy-index
+IMAGE := ghcr.io/zendevelopmentecosystem/nginx-proxy-index
 TAG := test
 DOCKER_ARGS ?=
 
