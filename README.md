@@ -6,13 +6,20 @@ for [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy), that lists the
 running services (virtual hosts) to act as a kind of service index-page;
 service discovery for humans.
 
+Official Image
+--------------
+
+```console
+docker pull ghcr.io/zendevelopmentecosystem/nginx-proxy-index:latest
+```
+
 Usage
 -----
 
-Use the included `docker-compose.yml` file, or run:
+Use the included `docker-compose.yml` file for inspiration, or run:
 
 ```console
-docker run -d -v /var/run/docker.sock:/tmp/docker.sock -e INDEX_HOST="MyServer" -e VIRTUAL_HOST=index.local ghcr.io/zendevelopmentecosystem/nginx-proxy-index:latest
+docker run -d -v /var/run/docker.sock:/tmp/docker.sock -e INDEX_HOST="MyServer" -e VIRTUAL_HOST=index.localhost ghcr.io/zendevelopmentecosystem/nginx-proxy-index:latest
 ```
 
 The variable INDEX_HOST is used to set the property `host` for the services listed
