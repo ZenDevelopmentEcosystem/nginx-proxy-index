@@ -8,7 +8,7 @@ static-docker-compose:
 	$(Q)cd "$(ROOT.dir)" && find "$(ROOT.dir)" \
 		-type f \
 		-name 'docker-compose*.yml' \
-		| xargs --no-run-if-empty -L1 -I {} \
+		| xargs --no-run-if-empty -I {} \
 			$(DOCKER_COMPOSE.cmd) -f "{}" \
 			--env-file "$(ROOT.dir)/.env" \
 			config -q
