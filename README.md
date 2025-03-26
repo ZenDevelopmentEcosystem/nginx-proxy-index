@@ -97,7 +97,7 @@ To build the image using a local filesystem version of the index-web application
 a file `.env` based on the `env.template` file and set the appropriate variables
 as described in the template file. By default, it will use the public repository.
 
-To bring up a test-instance, run `make up`. In addition to the included `docker-compose.yml`
+To bring up a test-instance, run `make up` (http://localhost:8082). In addition to the included `docker-compose.yml`
 the mechanism allow for customization using your own file `local-docker-compose.yml`.
 
 Acknowledgements
